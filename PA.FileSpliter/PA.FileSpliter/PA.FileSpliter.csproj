@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MasterFile.cs" />
+    <Compile Include="SplitedFile.cs" />
+    <Compile Include="SplitType.cs" />
     <Page Include="Controls\SpliterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
