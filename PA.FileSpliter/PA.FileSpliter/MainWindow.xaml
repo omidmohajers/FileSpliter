@@ -1,0 +1,28 @@
+﻿<Window x:Class="PA.FileSpliter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PA.FileSpliter"
+        mc:Ignorable="d"
+        Title="File Spliter" Height="666.947" Width="854">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="283*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="White" Background="Black" BorderThickness="0 0 0 2">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Margin="10 10 0 10" Width="400" BorderThickness="0" Padding="5" Background="#FFFFFDFD" AutomationProperties.HelpText="Inter File Path Or Browse file"/>
+                <Button Width="100" Background="#FFFFFDFD" BorderThickness="0" Margin="0 10 0 10" Content="Browse" />
+                <Button Width="100" Background="#FFFFFDFD" BorderThickness="0" Margin="0 10 0 10" Content="Add" />
+            </StackPanel>
+        </Border>
+        <TabControl Grid.Row="1">
+            <TabItem Header="FileName" ></TabItem>
+        </TabControl>
+    </Grid>
+</Window>
