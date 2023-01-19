@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PA.FileSpliter"
         mc:Ignorable="d"
-        Title="File Spliter" Height="666.947" Width="854">
+        Title="File Spliter" Height="666.947" Width="854" WindowStartupLocation="CenterScreen" FontSize="16" >
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

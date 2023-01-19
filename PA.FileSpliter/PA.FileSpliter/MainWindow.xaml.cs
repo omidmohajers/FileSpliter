@@ -81,6 +81,7 @@ namespace PA.FileSpliter
                 {
                     fileControl.SelectedIndex = i;
                     Helper.ShowErrors(errors);
+                    return;
                 }
             }
             try

@@ -95,6 +95,7 @@ namespace PA.FileSpliter.Controls
             if (errors.Count > 0)
             {
                 Helper.ShowErrors(errors);
+                return;
             }
             previewListView.Items.Clear();
             MasterFile preFile = (MasterFile)file.Clone();
