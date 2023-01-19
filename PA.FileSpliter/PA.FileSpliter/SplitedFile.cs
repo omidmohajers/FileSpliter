@@ -12,5 +12,6 @@ namespace PA.FileSpliter
         public byte[] Content { get; set; }
         public int FileNumber { get; set; }
         public bool IsChecked { get; set; }
+        public string FileName { get; internal set; }
     }
 }
