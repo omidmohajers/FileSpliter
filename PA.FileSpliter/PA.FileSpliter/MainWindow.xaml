@@ -1,9 +1,8 @@
-﻿<Window x:Class="PA.FileSpliter.MainWindow"
+﻿<Window x:Class="PA.FileSplitter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PA.FileSpliter"
         mc:Ignorable="d"
         Title="File Spliter" Height="666.947" Width="854" WindowStartupLocation="CenterScreen" FontSize="16" >
     <Grid >

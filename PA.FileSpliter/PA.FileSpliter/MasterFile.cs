@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PA.FileSpliter
+namespace PA.FileSplitter
 {
     public class MasterFile : ICloneable
     {
@@ -15,7 +15,7 @@ namespace PA.FileSpliter
         public string SourceFilename { get; set; }
         public SplitType SplitBy { get; set; }
         public int Value { get; set; }
-        public List<SplitedFile> Files { get; private set; }
+        public List<SplittedFile> Files { get; private set; }
         public string OutputPath { get; set; }
         public string OutputFilename { get; set; }
         public string FileExtention { get; set; }
@@ -36,7 +36,7 @@ namespace PA.FileSpliter
         }
         public MasterFile()
         {
-            Files = new List<SplitedFile>();
+            Files = new List<SplittedFile>();
         }
         public List<string> Validate()
         {
@@ -83,7 +83,7 @@ namespace PA.FileSpliter
             int counter = (lines.Length / Value) + (lines.Length % Value != 0 ? 1 : 0);
             for (int i = 0; i < counter; i++)
             {
-                SplitedFile subFile = new SplitedFile();
+                SplittedFile subFile = new SplittedFile();
                 subFile.FileNumber = i + 1;
                 Files.Add(subFile);
             }
@@ -92,7 +92,7 @@ namespace PA.FileSpliter
 
         private void GenerateFileName()
         {
-            foreach(SplitedFile sf in Files)
+            foreach(SplittedFile sf in Files)
             {
                 sf.FileName = string.Format("{0}{1}{2}", OutputFilename, sf.FileNumber.ToString().PadLeft(digitCount, '0'), FileExtention);
                 sf.SaveTo = Path.Combine(OutputPath, sf.FileName);
@@ -108,7 +108,7 @@ namespace PA.FileSpliter
             int counter = (data.Length / len) + (data.Length % len != 0 ? 1 : 0);
             for (int i = 0; i < counter; i++)
             {
-                SplitedFile subFile = new SplitedFile();
+                SplittedFile subFile = new SplittedFile();
                 subFile.FileNumber = i + 1;
                 Files.Add(subFile);
             }
@@ -125,7 +125,7 @@ namespace PA.FileSpliter
             {
                 int j = 0;
                 StringBuilder sb = new StringBuilder();
-                SplitedFile subFile = new SplitedFile();
+                SplittedFile subFile = new SplittedFile();
                 while (j < Value && i < lines.Length)
                 {
                     sb.AppendLine(lines[i]);
@@ -151,7 +151,7 @@ namespace PA.FileSpliter
                     len = data.Length - i;
                 byte[] subdata = new byte[len];
                 Array.Copy(data, i, subdata, 0, len);
-                SplitedFile subFile = new SplitedFile();
+                SplittedFile subFile = new SplittedFile();
                 subFile.Content = subdata;
                 subFile.FileNumber = ++counter;
                 Files.Add(subFile);
@@ -178,7 +178,7 @@ namespace PA.FileSpliter
 
         private void SaveToFile()
         {
-            foreach (SplitedFile sf in Files)
+            foreach (SplittedFile sf in Files)
             {
                 FileProvider.FromByteArray(sf.SaveTo, sf.Content, true);
             }

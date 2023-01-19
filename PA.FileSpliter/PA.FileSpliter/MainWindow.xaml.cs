@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using PA.FileSpliter.Controls;
+using PA.FileSplitter.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PA.FileSpliter
+namespace PA.FileSplitter
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -68,7 +68,7 @@ namespace PA.FileSpliter
             FileInfo info = new FileInfo(mf.SourceFilename);
             mf.FileExtention = info.Extension;
             tab.Header = info.Name;
-            tab.Content = new SpliterControl() { MasterFile = mf, Margin = new Thickness(0) };
+            tab.Content = new SplitterControl() { MasterFile = mf, Margin = new Thickness(0) };
             fileControl.Items.Add(tab);
         }
 

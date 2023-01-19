@@ -14,16 +14,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PA.FileSpliter.Controls
+namespace PA.FileSplitter.Controls
 {
     /// <summary>
-    /// Interaction logic for SpliterControl.xaml
+    /// Interaction logic for SplitterControl.xaml
     /// </summary>
-    public partial class SpliterControl : UserControl
+    public partial class SplitterControl : UserControl
     {
         private MasterFile file;
 
-        public SpliterControl()
+        public SplitterControl()
         {
             InitializeComponent();
         }
@@ -100,7 +100,7 @@ namespace PA.FileSpliter.Controls
             previewListView.Items.Clear();
             MasterFile preFile = (MasterFile)file.Clone();
             preFile.Preview();
-            foreach(SplitedFile sf in preFile.Files)
+            foreach(SplittedFile sf in preFile.Files)
             {
                 ListViewItem item = new ListViewItem();
                 item.Content = sf.FileName;

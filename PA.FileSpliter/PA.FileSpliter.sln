@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.FileSpliter", "PA.FileSpliter\PA.FileSpliter.csproj", "{8CAC73FD-853E-4EAA-8D8D-AAAB740F074C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.FileSplitter", "PA.FileSpliter\PA.FileSplitter.csproj", "{8CAC73FD-853E-4EAA-8D8D-AAAB740F074C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

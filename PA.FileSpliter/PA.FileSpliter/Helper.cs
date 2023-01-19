@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PA.FileSpliter
+namespace PA.FileSplitter
 {
     public static class Helper
     {

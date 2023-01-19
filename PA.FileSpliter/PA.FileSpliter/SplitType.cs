@@ -1,4 +1,4 @@
-﻿namespace PA.FileSpliter
+﻿namespace PA.FileSplitter
 {
     public enum SplitType
     {

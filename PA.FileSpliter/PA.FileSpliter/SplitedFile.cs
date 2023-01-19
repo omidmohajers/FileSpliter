@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PA.FileSpliter
+namespace PA.FileSplitter
 {
-    public class SplitedFile
+    public class SplittedFile
     {
         public string SaveTo { get; set; }
         public byte[] Content { get; set; }
