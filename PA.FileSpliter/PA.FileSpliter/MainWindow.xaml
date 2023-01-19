@@ -17,7 +17,6 @@
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="filenameTextbox" Margin="10 10 0 10" IsReadOnly="True" Text="" Foreground="#FF767474" Width="400" BorderThickness="0" Padding="5" Background="#FFFFFDFD" AutomationProperties.HelpText="Inter File Path Or Browse file"/>
                 <Button x:Name="browseButton" Click="browseButton_Click" Width="100" Background="#FFFFFDFD" BorderThickness="0" Margin="0 10 0 10" Content="Browse" />
-                <Button x:Name="addButton" Click="addButton_Click" Width="100" Background="#FFFFFDFD" BorderThickness="0" Margin="0 10 0 10" Content="Add" />
                 <Button x:Name="startButton" Click="startButton_Click" Width="100" Background="#FFFFFDFD" BorderThickness="0" Margin="0 10 0 10" Content="Start Batch" />
             </StackPanel>
         </Border>
