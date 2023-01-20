@@ -13,4 +13,5 @@ How to use
 
 First, you select the file(s) you want to process by clicking on “Browse” 
 By selecting files A tab will open for each file where you can specify the conditions for splitting each file separately. Specify the output path and set options section, you are ready to perform the operation by selecting the splitting algorithm and determining the value and specifying the name of the output file. For more certainty, you can click on preview to see the output files and their names. At the end, by clicking on Start Batch, the processing is done and the outputs are created in the specified paths.
-![image](https://user-images.githubusercontent.com/120931404/213753561-13bad3fc-7b19-4a0a-99e7-fbd84f493c7a.png)
+![image](https://user-images.githubusercontent.com/120931404/213794549-1d5d8c20-901b-4b38-9541-eea5df6640dc.png)
+
