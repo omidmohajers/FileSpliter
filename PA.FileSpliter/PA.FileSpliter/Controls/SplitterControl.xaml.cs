@@ -22,10 +22,11 @@ namespace PA.FileSplitter.Controls
     public partial class SplitterControl : UserControl
     {
         private MasterFile file;
-
+        private bool init = false;
         public SplitterControl()
         {
             InitializeComponent();
+            init = true;
         }
 
         public MasterFile MasterFile
@@ -48,17 +49,32 @@ namespace PA.FileSplitter.Controls
                 ClearUI();
                 return;
             }
+            splitbyComboBox.SelectedIndex = (int)file.SplitBy;
             switch (file.SplitBy)
             {
                 case SplitType.ByLine:
-                    byLineCheckbox.IsChecked = true;
-                    lineValueTextBox.Text = file.Value.ToString("N0");
+                    lineValueTextBox.Text = file.Value;
                     sizeValueTextBox.Text = "0";
+                    charValueTextBox.Text = string.Empty;
+                    phraseValueTextBox.Text = string.Empty;
                     break;
-                case SplitType.bySize:
-                    bySizeCheckBox.IsChecked = true;
-                    sizeValueTextBox.Text = file.Value.ToString("N0");
+                case SplitType.BySize:
                     lineValueTextBox.Text = "0";
+                    sizeValueTextBox.Text = file.Value;
+                    charValueTextBox.Text = string.Empty;
+                    phraseValueTextBox.Text = string.Empty;
+                    break;
+                case SplitType.ByChar:
+                    lineValueTextBox.Text = "0";
+                    sizeValueTextBox.Text = "0";
+                    charValueTextBox.Text = file.Value;
+                    phraseValueTextBox.Text = string.Empty;
+                    break;
+                case SplitType.ByPhrase:
+                    lineValueTextBox.Text = "0";
+                    sizeValueTextBox.Text = "0";
+                    charValueTextBox.Text = string.Empty;
+                    phraseValueTextBox.Text = file.Value;
                     break;
             }
             previewButton.IsEnabled = true;
@@ -67,10 +83,9 @@ namespace PA.FileSplitter.Controls
         private void ClearUI()
         {
             outputTextBox.Text = string.Empty;
-            byLineCheckbox.IsChecked = true;
+            splitbyComboBox.SelectedIndex= 0;
             outFileNameTextBox.Text = string.Empty;
             previewListView.Items.Clear();
-            previewButton.IsEnabled = false;
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -79,7 +94,7 @@ namespace PA.FileSplitter.Controls
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void saveToButton_Click(object sender, RoutedEventArgs e)
+        private void SaveToButton_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog browser = new System.Windows.Forms.FolderBrowserDialog();
             if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -110,9 +125,33 @@ namespace PA.FileSplitter.Controls
 
         private void UpdateData()
         {
-            MasterFile.SplitBy = byLineCheckbox.IsChecked.Value ?  SplitType.ByLine  : SplitType.bySize;
-            MasterFile.Value = MasterFile.SplitBy == SplitType.ByLine ? int.Parse(lineValueTextBox.Text) : int.Parse(sizeValueTextBox.Text);
+            MasterFile.SplitBy = (SplitType)splitbyComboBox.SelectedIndex;
+            switch (MasterFile.SplitBy)
+            {
+                case SplitType.ByLine:
+                    MasterFile.Value = lineValueTextBox.Text;
+                    break;
+                case SplitType.BySize:
+                    MasterFile.Value = sizeValueTextBox.Text;
+                    break;
+                case SplitType.ByChar:
+                    MasterFile.Value = charValueTextBox.Text;
+                    break;
+                case SplitType.ByPhrase:
+                    MasterFile.Value = phraseValueTextBox.Text;
+                    break;
+            }
             MasterFile.OutputFilename = outFileNameTextBox.Text.Trim();
+        }
+
+        private void splitbyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!init)
+                return;
+            lineGroupBox.Visibility = splitbyComboBox.SelectedIndex == 0 ? Visibility.Visible : Visibility.Collapsed;
+            sizeGroupBox.Visibility = splitbyComboBox.SelectedIndex == 1 ? Visibility.Visible : Visibility.Collapsed;
+            charGroupBox.Visibility = splitbyComboBox.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+            phraseGroupBox.Visibility = splitbyComboBox.SelectedIndex == 3 ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

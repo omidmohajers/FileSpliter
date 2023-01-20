@@ -14,7 +14,7 @@ namespace PA.FileSplitter
 
         public string SourceFilename { get; set; }
         public SplitType SplitBy { get; set; }
-        public int Value { get; set; }
+        public string Value { get; set; }
         public List<SplittedFile> Files { get; private set; }
         public string OutputPath { get; set; }
         public string OutputFilename { get; set; }
@@ -53,7 +53,7 @@ namespace PA.FileSplitter
             {
                 result.Add("output FileName Cant Empty!!!");
             }
-            if (Value < 1)
+            if (string.IsNullOrWhiteSpace(Value))
             {
                 result.Add("Value is Invalid!!!");
             }
@@ -68,8 +68,14 @@ namespace PA.FileSplitter
                 case SplitType.ByLine:
                     PreByLine();
                     break;
-                case SplitType.bySize:
+                case SplitType.BySize:
                     PreBySize();
+                    break;
+                case SplitType.ByChar:
+                    PreByChar();
+                    break;
+                case SplitType.ByPhrase:
+                    PreByPhrase();
                     break;
             }
             GenerateFileName();
@@ -80,7 +86,11 @@ namespace PA.FileSplitter
             string[] lines = File.ReadAllLines(SourceFilename);
             if (lines.Length == 0)
                 return;
-            int counter = (lines.Length / Value) + (lines.Length % Value != 0 ? 1 : 0);
+            int val = 0;
+            int.TryParse(Value, out val);
+            if (val < 1)
+                val = 1;
+            int counter = (lines.Length / val) + (lines.Length % val != 0 ? 1 : 0);
             for (int i = 0; i < counter; i++)
             {
                 SplittedFile subFile = new SplittedFile();
@@ -104,12 +114,48 @@ namespace PA.FileSplitter
             byte[] data = FileProvider.ToByteArray(SourceFilename);
             if (data.Length == 0)
                 return;
-            int len = Value * 1024;
+            int val = 0;
+            int.TryParse(Value, out val);
+            if (val < 1)
+                val = 1;
+            int len = val * 1024;
             int counter = (data.Length / len) + (data.Length % len != 0 ? 1 : 0);
             for (int i = 0; i < counter; i++)
             {
                 SplittedFile subFile = new SplittedFile();
                 subFile.FileNumber = i + 1;
+                Files.Add(subFile);
+            }
+            digitCount = (int)Math.Floor(Math.Log10(counter) + 1);
+        }
+        private void PreByChar()
+        {
+            string data = File.ReadAllText(SourceFilename);
+            if (data.Length == 0)
+                return;
+            int counter = 0;
+            char val = Value.Length > 0 ? Value[0] : ',';
+            string[] lines = data.Split(val);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                SplittedFile subFile = new SplittedFile();
+                subFile.FileNumber = ++counter;
+                Files.Add(subFile);
+            }
+            digitCount = (int)Math.Floor(Math.Log10(counter) + 1);
+        }
+        private void PreByPhrase()
+        {
+            string data = File.ReadAllText(SourceFilename);
+            if (data.Length == 0)
+                return;
+            int counter = 0;
+            string[] val = new string[] { Value };
+            string[] lines = data.Split(val, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                SplittedFile subFile = new SplittedFile();
+                subFile.FileNumber = ++counter;
                 Files.Add(subFile);
             }
             digitCount = (int)Math.Floor(Math.Log10(counter) + 1);
@@ -121,12 +167,16 @@ namespace PA.FileSplitter
             if (lines.Length == 0)
                 return;
             int counter = 0;
+            int val = 0;
+            int.TryParse(Value, out val);
+            if (val < 1)
+                val = 1;
             for (int i = 0; i < lines.Length; )
             {
                 int j = 0;
                 StringBuilder sb = new StringBuilder();
                 SplittedFile subFile = new SplittedFile();
-                while (j < Value && i < lines.Length)
+                while (j < val && i < lines.Length)
                 {
                     sb.AppendLine(lines[i]);
                     i++;
@@ -144,9 +194,13 @@ namespace PA.FileSplitter
             if (data.Length == 0)
                 return;
             int counter = 0;
+            int val = 0;
+            int.TryParse(Value, out val);
+            if (val < 1)
+                val = 1;
             for (int i = 0; i < data.Length;)
             {
-                int len = Value * 1024;
+                int len = val * 1024;
                 if (len > data.Length - i)
                     len = data.Length - i;
                 byte[] subdata = new byte[len];
@@ -159,6 +213,40 @@ namespace PA.FileSplitter
             }
             digitCount = (int)Math.Floor(Math.Log10(counter) + 1);
         }
+        private void SplitByChar()
+        {
+            string data = File.ReadAllText(SourceFilename);
+            if (data.Length == 0)
+                return;
+            int counter = 0;
+            char val = Value.Length > 0 ? Value[0] : ',';
+            string[] lines = data.Split(val);
+            for (int i = 0; i < lines.Length;i++)
+            {
+                SplittedFile subFile = new SplittedFile();
+                subFile.Content = Encoding.ASCII.GetBytes(lines[i]);
+                subFile.FileNumber = ++counter;
+                Files.Add(subFile);
+            }
+            digitCount = (int)Math.Floor(Math.Log10(counter) + 1);
+        }
+        private void SplitByPhrase()
+        {
+            string data = File.ReadAllText(SourceFilename);
+            if (data.Length == 0)
+                return;
+            int counter = 0;
+            string[] val = new string[] { Value };
+            string[] lines = data.Split(val, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                SplittedFile subFile = new SplittedFile();
+                subFile.Content = Encoding.ASCII.GetBytes(lines[i]);
+                subFile.FileNumber = ++counter;
+                Files.Add(subFile);
+            }
+            digitCount = (int)Math.Floor(Math.Log10(counter) + 1);
+        }
 
         public void Start()
         {
@@ -168,8 +256,14 @@ namespace PA.FileSplitter
                 case SplitType.ByLine:
                     SplitByLine();
                     break;
-                case SplitType.bySize:
+                case SplitType.BySize:
                     SplitBySize();
+                    break;
+                case SplitType.ByChar:
+                    SplitByChar();
+                    break;
+                case SplitType.ByPhrase:
+                    SplitByPhrase();
                     break;
             }
             GenerateFileName();

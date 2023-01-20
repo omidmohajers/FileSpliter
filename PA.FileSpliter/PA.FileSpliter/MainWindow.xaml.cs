@@ -49,7 +49,7 @@ namespace PA.FileSplitter
             }
             foreach (string f in files)
             {
-                MasterFile mf = new MasterFile() { SourceFilename = f, SplitBy = SplitType.ByLine, Value = 1 };
+                MasterFile mf = new MasterFile() { SourceFilename = f, SplitBy = SplitType.ByLine, Value = "1" };
                 attachedFiles.Add(mf);
                 UpdateUI(mf);
             }
